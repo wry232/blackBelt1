@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Item</title>
+</head>
+<body>
+<h1>Create a New Wish List Item</h1>
+    <form action="{% url 'Bapp:add' %}" method="post">
+        <label>Item/Product<input type="text" name="item"></label>
+        <input type="submit" name="submit" value="Add">
+        {% csrf_token %}
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+    </form>
+</body>
+</html>

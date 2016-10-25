@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>My Wish List</title>
+</head>
+<body>
+    <div id="container">
+        <div id="topPart">
+            <h2>Hello, {{request.session.name}}!</h2>
+            <a href="{% url 'login:logout' %}">Logout</a>
+        </div>
+        <div id="myWish"></div>
+        <h4>Your Wish List</h4>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Added by</th>
+                <th>Date Added</th>
+                <th>Action</th>
+            </tr>
+            {% for item in items %}
+            <tr class="item_table">
+                <td><a href="{% url 'Bapp:item' id=item.id %}">{{item.name}}</a></td>
+                <td>{{item.maker.name}}</td>
+                <td>{{item.created_at|date:"M d, Y"}}</td>
+                <td><a href="{% url 'Bapp:removeitem' id=item.id %}">Remove from my wishlist</a></td>
+            </tr>
+            {% endfor %}
+            {% for item in myItems %}
+            <tr class="item_table">
+                <td><a href="{% url 'Bapp:item' id=item.id %}">{{item.name}}</a></td>
+                <td>{{item.maker.name}}</td>
+                <td>{{item.created_at|date:"M d, Y"}}</td>
+                <td><a href="{% url 'Bapp:delete' id=item.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div id="otherWish"></div>
+        <h4>Other User's Wish List</h4>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Added by</th>
+                <th>Date Added</th>
+                <th>Action</th>
+            </tr>
+            {% for item in OtherItems %}
+            <tr class="item_table">
+                <td><a href="{% url 'Bapp:item' id=item.id %}">{{item.name}}</a></td>
+                <td>{{item.maker.name}}</td>
+                <td>{{item.created_at|date:"M d, Y"}}</td>
+                <td><a href="{% url 'Bapp:additem' id=item.id %}">Add to my wishlist!</a></td>
+            </tr>
+            {% endfor %}
+            </table>
+            <dir id="bottomPart">
+                <a href="{% url 'Bapp:create' %}">Add Item</a>
+            </dir>
+    </div>
+</body>
+</html>
